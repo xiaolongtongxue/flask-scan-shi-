@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="/st1/css/login_register.css">
+</head>
+<body>
+<script type="text/javascript">
+    if ({{ data['alert'] }})
+        alert("{{ data['msg'] }}");
+</script>
+<script>
+
+    function Submit() {
+        const random_str = "{{ data['random_str'] }}";
+
+        document.getElementById("password10").value = btoa(document.getElementById("password1").value + random_str);
+        document.getElementById("password20").value = btoa(document.getElementById("password2").value + random_str);
+
+        document.getElementById("register_submit").submit();
+    }
+</script>
+
+
+<div class="form">
+    <form action="/register/{{ data['random_str'] }}" method="post">
+        <h1>用户注册</h1>
+        <div class="txtb">
+            <label for="">用户名：</label>
+            <input type="text" name="username" id="username" placeholder="请输入用户名"></div>
+        <div class="txtb">
+            <label for="">密码：</label>
+            <input type="password" id="password1" placeholder="请输入密码"></div>
+        <div class="txtb">
+            <label for="">确认密码：</label>
+            <input type="password" id="password2" placeholder="请再次输入密码"></div>
+        <input type="hidden" name="password" id="password10">
+        <input type="hidden" name="correctpwd" id="password20">
+        <input style="background-color: #8e9eba" type="submit" class="btn" id="btn_sub" value="提交" onclick="Submit()">
+        <p>已有账号?<a href="/login/1">立即登录</a></p>
+    </form>
+</div>
+
+</body>
+

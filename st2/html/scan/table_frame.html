@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table_Show</title>
+    <link rel="stylesheet" href="/st1/css/table.css">
+    <script src="/st1/js/jquery.min.js"></script>
+    <script src="/st1/js/json-to-table.min.js"></script>
+    <script>
+        {#const {jsonToHTMLTable} = JSONToTable;#}
+    </script>
+</head>
+<body>
+<script type="text/javascript">
+    function ajax_go() {
+        $("#sub").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/myscan/select",
+                    data: $("#fm").serialize(),
+                    async: true,
+                    error: function (request) {
+                        alert("请求失败");
+                    },
+                    success: function (data_s) {
+                        {#alert(data);#}
+                        {#alert(data_s['TableList'].length);#}
+                        console.log(data_s);
+
+                        const table_place = document.getElementById("table");
+                        if (data_s['a'] === 'a') {
+                            html = "" +
+                                "<table border='1'>" +
+                                "<tr>" +
+                                "<td>扫描时间</td>" +
+                                "<td>扫描id号</td>" +
+                                "<td>扫描模式</td>" +
+                                "<td>用户名</td>" +
+                                "<td>被扫描主机</td>" +
+                                "<td>扫描结果原文</td>" +
+                                "<td>错误代码</td>" +
+                                "<tr>";
+                            for (var i = 0; i < data_s['TableList'].length; i++) {
+                                html += "<tr>" +
+                                    "<td>" + data_s['TableList'][i]['Scan_Time'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['Scan_id'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['Scan_Model'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['username'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['Scan_Hosts'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['EndText'] + "</td>" +
+                                    "<td>" + data_s['TableList'][i]['ErrorCode'] + "</td>" +
+                                    "</tr>";
+                            }
+                            html += "</table>"
+                        } else {
+                            {#alert("2");#}
+                            html = "" +
+                                "<table border='1'>" +
+                                "<tr>" +
+                                "<td>扫描时间</td>" +
+                                "<td>扫描id号</td>" +
+                                "<td>扫描模式</td>" +
+                                "<td>用户名</td>" +
+                                "<td>被扫描主机</td>" +
+                                "<td>被扫描端口</td>" +
+                                "<td>扫描结果原文</td>" +
+                                "<td>错误代码</td>" +
+                                "<tr>";
+                            {#alert(data_s['TableList'].length);#}
+                            for (var ii = 0; ii < data_s['TableList'].length; ii++) {
+                                html += "<tr>" +
+                                    "<td>" + data_s['TableList'][ii]['Scan_Time'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['Scan_id'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['Scan_Model'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['username'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['Scan_Hosts'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['Scan_Ports'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['EndText'] + "</td>" +
+                                    "<td>" + data_s['TableList'][ii]['ErrorCode'] + "</td>" +
+                                    "</tr>";
+                            }
+                            html += "</table>"
+                        }
+
+                        {#table_place.innerHTML = data_s['TableList'];#}
+                        table_place.innerHTML = html;
+
+                        {#const data = data_s['TableList'];#}
+                        {##}
+                        {#const {jsonToHTMLTable} = require('nested-json-to-table');#}
+                        {#const tableHTML = jsonToHTMLTable(data);#}
+                        {#console.log(tableHTML);#}
+
+                    }
+                })
+            }
+        )
+        ;
+    }
+
+</script>
+<div id="top">
+    <div class="guy">
+        <h1>哈喽哇，{{ data.username }}</h1>
+        <h3>您的id为 {{ data.id }}</h3>
+        <h3>您的权限等级为 {{ data.level }}</h3>
+        <h3>以下内容为您的全部扫描历史(右侧可以进行高级查询)：</h3>
+    </div>
+    {#    <div>#}
+    {#        <h3>高级查询</h3>#}
+    {#    </div>#}
+    <div class="form-select">
+        {#        <h3>高级查询</h3>#}
+        {#        <form action="/myscan/select" method="post" id="fm">#}
+        <form id="fm">
+            <strong style="">扫描模式：
+                <input type="radio" name="type_" value="11" checked>主机扫描
+                <input type="radio" name="type_" value="22">端口扫描
+            </strong><br>
+            {% for content in data.form %}
+                {% if content[1]==False %}
+                    <strong style="">{{ content[0] }}：<br>
+                        <input type="radio" name="{{ content[2] }}" value="1" checked>scapy
+                        <input type="radio" name="{{ content[2] }}" value="2">nmap
+                        <input type="radio" name="{{ content[2] }}" value="3">socket
+                    </strong>
+                {% else %}
+                    <strong style="">{{ content[0] }}：</strong>
+                    <input class="input__field input__field--haruki" type="text" name="{{ content[1] }}"
+                           placeholder="{{ content[2] }} 请写在这里">
+                {% endif %}
+                <br>
+            {% endfor %}
+            <input type="button" class="btn" id="sub" value="提交" onclick="ajax_go()">
+        </form>
+    </div>
+</div>
+<div id="table">
+    <table></table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="/st1/css/login_register.css">
+</head>
+<body>
+<script type="text/javascript">
+    if ({{ data['alert'] }})
+        alert("{{ data['msg'] }}");
+</script>
+<script>
+
+    function Submit() {
+        const random_str = "{{ data['random_str'] }}";
+
+        document.getElementById("password10").value = btoa(document.getElementById("password1").value + random_str);
+
+        document.getElementById("register_submit").submit();
+    }
+</script>
+
+<div class="form">
+    <form action="/login/{{ data['random_str'] }}" method="post">
+        <h1>用户登录</h1>
+        <div class="txtb">
+            <label for="">用户名：</label>
+            <input type="text" name="username" id="username" placeholder="请输入用户名"></div>
+        <div class="txtb">
+            <label for="">密码：</label>
+            <input type="password" id="password1" placeholder="请输入密码"></div>
+        <input type="hidden" name="password" id="password10">
+        <input style="background-color: #8e9eba" type="submit" class="btn" id="btn_sub" value="提交" onclick="Submit()">
+        <p>没有账号?<a href="/register/1">立即注册</a></p>
+    </form>
+</div>
+
+</body>
+

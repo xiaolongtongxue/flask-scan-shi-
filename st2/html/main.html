@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <script src="/st1/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/st1/css/main_page.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $(".nav-menu").each(function () {
+                $(this).children(".nav-content").hide();
+            });
+            $(".nav-title").each(function () {
+                var navConEle = $(this).parents(".nav-menu").children(".nav-content");
+                $(this).click(function () {
+                    if (navConEle.css("display") != "none") {
+                        navConEle.hide(300);
+                    } else {
+                        $(".nav-menu").each(function () {
+                            $(this).children(".nav-content").hide(300);
+                        });
+                        navConEle.show(300);
+                    }
+                });
+            });
+
+            $(".nav-content>a").each(function () {
+                $(this).click(function () {
+                    $(".content-right").html("$(this).html()");
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="content" id="page">
+    <div class="content-left">
+        <div class="left-title">
+            <a href="/">txk扫描</a>
+        </div>
+        <div class="seg"></div>
+        <div class="nav">
+            <div class="nav-menu">
+                <div class="nav-title">主机存活扫描</div>
+                <div class="nav-content">
+                    <a href="?child=/form/scan/1/1">By scapy</a>
+                    <a href="?child=/form/scan/1/2">By nmap</a>
+                    <a href="?child=/form/scan/1/3">By socket</a>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-title">端口扫描</div>
+                <div class="nav-content">
+                    <a href="?child=/form/scan/2/1">By scapy</a>
+                    <a href="?child=/form/scan/2/2">By nmap</a>
+                    <a href="?child=/form/scan/2/3">By socket</a>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-title">我的扫描</div>
+                <div class="nav-content">
+                    <a href="?child=/myself">账户信息</a>
+                    <a href="?child=/myscan">我的扫描</a>
+                    <a href="/log_out">退出登录</a>
+                </div>
+            </div>
+        </div>
+        <div class="seg"></div>
+    </div>
+    <div class="content-right">
+{#        <h1 style="margin-top: 1vh">{{ data["container"]|tojson }}</h1>#}
+    <script type="text/javascript">
+        if ({{ data['page'] }})
+            document.write('<iframe src="' + '{{ data['msg'] }}' + '" border=0 ></iframe>');
+    </script>
+    </div>
+</div>
+</body>
+</html>

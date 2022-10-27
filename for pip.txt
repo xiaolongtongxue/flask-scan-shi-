@@ -1,0 +1,6 @@
+pip install dnspython
+pip install scapy
+pip install ipaddress
+pip install python-nmap
+pip install mysql-connector-python
+pip install flask

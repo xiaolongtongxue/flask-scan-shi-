@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.scan_type }}扫描</title>
+</head>
+<link rel="stylesheet" href="/st1/css/form.css">
+<script>
+    function sub(){
+        alert("扫描请求提交成功，请稍后在个人中心查看扫描结果")
+    }
+</script>
+<body>
+<h1>{{ data.scan_type }}</h1>
+<form action="{{ data.action }}" method="{{ data.methods }}">
+    {% for content in data.form_list %}
+        <strong style="font-size: 20px">{{ content[0] }}：</strong><input class="input__field input__field--haruki" type="text" name="{{ content[1] }}"
+                                placeholder="{{ content[2] }} 请写在这里">
+        <label class="input__label input__label--haruki" for="input-1"></label>
+{#        <span class="input__label-content input__label-content--haruki">{{ content[0] }}</span>#}
+    <br>
+    {% endfor %}
+    <br>
+    <input class="btn" type="submit" value="提交" onclick="sub()">
+</form>
+</body>
+</html>
