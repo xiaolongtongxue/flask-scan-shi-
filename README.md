@@ -1,9 +1,8 @@
 # flask-scan-shi-
 花了两个星期写的flask扫描器，正在这边记一下（写的好烂ww）
-
 也是好久没有产出各种各样的学习or生活文章了，总结起来一方面原因是跑出去忙着做项目了，还有很大的一方面原因则是学校方面最终下来的一份大作业，喏，要求像这样
 
-![image-20221027201124107](t_images/image-20221027201124107.png)
+![image-20221027201124107](https://blog.小龙有点懵.xyz/images/t_images/image-20221027201124107.png)
 
 正好来年也就要毕业了，我刚开始的想法就是按照毕业设计的标准去做了。于是脑袋中开始构建架构，预计使用 Flask+Jinja+jQuery+ECharts+MySQL 进行开发，使用 Jinja 透过 Flask 来给前端进行传参，正好也有 [**国光大佬**](https://www.sqlsec.com) 写过了的一篇[**《Django 编写 Web 漏洞扫描器挖坑记录》**](https://www.sqlsec.com/2020/05/webscan.html)来进行入门参考，正好我就参考了下架构，萌生了下用上边的一套组件的念头。
 
@@ -21,27 +20,27 @@
 
 访问之后会 302 跳转到 `/login/p` 路径下要求登录，登陆界面是这样的
 
-![image-20221027210003057](t_images/image-20221027210003057.png)
+![image-20221027210003057](https://blog.小龙有点懵.xyz/images/t_images/image-20221027210003057.png)
 
 没有账号也可以直接去注册界面太过简单就不说太多了，这边咱们注册一个用户名为 qwe ，密码为某强口令
 
-![image-20221027210428711](t_images/image-20221027210428711.png)
+![image-20221027210428711](https://blog.小龙有点懵.xyz/images/t_images/image-20221027210428711.png)
 
 这就算是登陆成功了呢
 
-![image-20221027210734437](t_images/image-20221027210734437.png)
+![image-20221027210734437](https://blog.小龙有点懵.xyz/images/t_images/image-20221027210734437.png)
 
 > **登录状态**
 
 登陆成功之后也就进入了欢迎界面
 
-![官方吐槽————屎山](t_images/image-20221027210813404.png)
+![官方吐槽————屎山](https://blog.小龙有点懵.xyz/images/t_images/image-20221027210813404.png)
 
 这边顺便插入了一句自己的吐槽哈哈哈哈哈哈，只能表示这也是我本人当时刚写完主要内容之后内心的真实写照罢了，后边也是考虑到扫描行为的安全保险性，所以部署上云的设备网卡也进行了一定的限制，希望来玩的小伙伴们也不要乱搞哇！大家好好玩！
 
 > **退出登录**
 
-依此点击 ”我的扫描“ -&gt;”账户信息“，可以查看自己的账号的一些信息；退出登录的话依此点击 ”我的扫描“ -&gt; 即可。
+依此点击 ”我的扫描“ -”账户信息“，可以查看自己的账号的一些信息；退出登录的话依此点击 ”我的扫描“ -&gt; 即可。
 
 ## 主机扫描
 
@@ -49,23 +48,23 @@
 
 主机扫描主要是为了检验目标主机的存活性，并不进行其他校验，这边的云端部署仅仅是为了简单展示一下功能，真正使用还是希望下载之后慢慢体会（烂成这个样估计也没人会用ww）。下边两张图，是Scapy模式和Nmap模式下的主机扫描的前端样式，过于简陋，十分方便展示。**下边的所有内容点击”提交“之后，后台便会对对应的任务进行扫描，稍后可自行进行查看**
 
-![image-20221027215533149](t_images/image-20221027215533149.png)![image-20221027215540318](t_images/image-20221027215540318.png)
+![image-20221027215533149](https://blog.小龙有点懵.xyz/images/t_images/image-20221027215533149.png)![image-20221027215540318](https://blog.小龙有点懵.xyz/images/t_images/image-20221027215540318.png)
 
 ## 端口扫描
 
 端口扫描的话，内容就相对较多一点了，多了一个端口号输入的要求，但是这边也是规定了端口的输入格式，包括了 比如像`22-80`这种从小端口到大端口一系列进行端口扫描，以及像`22,80`这种用逗号分割开来的一个一个的端口，再或者就是80这样的单个端口。当然，**如果你硬是不按照规定的要求来，扫描的结果会给你答案**。同样的，端口扫描最后的结果，也可以在后台进行查看。
 
-![image-20221027220115103](t_images/image-20221027220115103.png)![image-20221027220123079](t_images/image-20221027220123079.png)
+![image-20221027220115103](https://blog.小龙有点懵.xyz/images/t_images/image-20221027220115103.png)![image-20221027220123079](https://blog.小龙有点懵.xyz/images/t_images/image-20221027220123079.png)
 
 ## 扫描结果查看
 
-左侧 Banner 依此点击“我的扫描” -&gt; “我的扫描”，就会进入以下窗口中
+左侧 Banner 依此点击“我的扫描” - “我的扫描”，就会进入以下窗口中
 
-![image-20221028093239838](t_images/image-20221028093239838.png)
+![image-20221028093239838](https://blog.小龙有点懵.xyz/images/t_images/image-20221028093239838.png)
 
 在这边打印出了对应的用户 id ， 用户权限等级（其实也没做鉴权），以及右侧的一个高级查询查询记录用的表单，在这边点击查询按钮会通过 ajax 发送对应的查询信息并反馈结果，以 table 表格的形式打印在界面上，就像这样
 
-![image-20221028102615149](t_images/image-20221028102615149.png)
+![image-20221028102615149](https://blog.小龙有点懵.xyz/images/t_images/image-20221028102615149.png)
 
 时间紧任务重，来不及做优化了，关于这点等下在代码细节中细说。
 
@@ -690,25 +689,25 @@ function ajax_go() {
 
 这一部分来说一下数据库的简单结构吧，长这样。
 
-![image-20221028155227133](t_images/image-20221028155227133.png)
+![image-20221028155227133](https://blog.小龙有点懵.xyz/images/t_images/image-20221028155227133.png)
 
 > **关于 users 用户表**
 
 包括了用户id，另外还有用户名、等级、以及哈希处理过了的密码几个字段
 
-![image-20221028155348883](t_images/image-20221028155348883.png)
+![image-20221028155348883](https://blog.小龙有点懵.xyz/images/t_images/image-20221028155348883.png)
 
 > **关于 host_scan 数据表**
 
 包括了扫描结束时间、扫描id、用户id、扫描模式（三种）、扫描主机、扫描结果原文、错误码
 
-![image-20221028155747303](t_images/image-20221028155747303.png)
+![image-20221028155747303](https://blog.小龙有点懵.xyz/images/t_images/image-20221028155747303.png)
 
 > **关于 ports_scan 数据表**
 
 包括了扫描结束时间、扫描id、用户id、扫描模式（三种）、扫描主机、扫描端口、扫描结果原文、错误码
 
-![image-20221028155906218](t_images/image-20221028155906218.png)
+![image-20221028155906218](https://blog.小龙有点懵.xyz/images/t_images/image-20221028155906218.png)
 
 # 经验教训
 
@@ -742,8 +741,8 @@ docker commit -m="My Scan" -a="txk" flaskxxx flask_scan:1
 # 创建docker网络
 docker network create --driver bridge --subnet 192.168.xx.0/24 --gateway 192.168.xx.1 xxxxxx
 # 创建docker
-docker run -itd --ip 192.168.101.111 --name flask-xxx --hostname flask_xxx -p 1888:1888 -v /root/sources.list:/etc/apt/sources.list -v /root/py:/root/py --network for_flask flask_scan:1 /bin/bash
-docker update flask-xxx --memory="256m" --cpus="1" --memory-swap="-1"
+docker run -itd --ip 192.168.101.111 --name flask-scan --hostname flask_xxx -p 1888:1888 -v /root/sources.list:/etc/apt/sources.list -v /root/py:/root/py --network for_flask flask_scan:1 /bin/bash
+docker update flask-scan --memory="256m" --cpus="1" --memory-swap="-1"
 # 配置MySQL
 docker run --ip 192.168.101.166 --network for_flask -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data/:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7
 # 配置待扫描环境
